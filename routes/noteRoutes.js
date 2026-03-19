@@ -24,13 +24,10 @@ router.get('/', async (req, res) => {
 // POST /api/notes - Create a new note
 router.post('/', async (req, res) => {
   try {
-    const note = new Note({
+    const note = await Note.create({
       ...req.body,
       // The user ID needs to be added here
-      user: req.user.id
     });
-    console.log("What's inside the note:", note);
-    await note.save();
     res.status(201).json(note);
   } catch (err) {
     res.status(400).json(err);
@@ -41,7 +38,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     // This needs an authorization check
-    const note = await Note.findByIdAndUpdate(req.params.id, req.body, req.user, { new: true });
+    const note = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!note) {
       return res.status(404).json({ message: 'No note found with this id!' });
     }

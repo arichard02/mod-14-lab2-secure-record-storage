@@ -8,7 +8,7 @@ import noteRoutes from './routes/noteRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
  
 app.use(express.json());
  
